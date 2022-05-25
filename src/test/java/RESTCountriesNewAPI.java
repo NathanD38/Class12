@@ -44,11 +44,11 @@ public class RESTCountriesNewAPI {
             JSONArray borders = mainJsonObject.getJSONArray("borders");
 
             JSONObject currencies = mainJsonObject.getJSONObject("currencies");
-            //mapping the inner object
-            String currency = String.valueOf(currencies.toMap().values()).replace("}]","").replace("[{","");
-            //extracts the currency symbol with the name - no other way around it that I could find.
-            String symbol = currency.substring(9);
-
+            System.out.println(currencies);
+            String currency = String.valueOf(currencies.toMap().values()); //mapping the inner object
+            System.out.println(currency);
+            String symbol = currency.substring(9).replace("[{", "").replace("}]", "");
+            System.out.println(symbol);
 
             System.out.println(answer + "'s region is " + region + ", its borders are " + borders + ", and its currency symbol is " + symbol + ".");
             reRun();
