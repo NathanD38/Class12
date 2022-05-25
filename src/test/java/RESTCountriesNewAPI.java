@@ -41,13 +41,13 @@ public class RESTCountriesNewAPI {
             JSONArray mainJsonArray = new JSONArray(countriesData);
             JSONObject mainJsonObject = (JSONObject) mainJsonArray.get(0);
             String region = mainJsonObject.getString("region");
-            JSONArray borders = mainJsonObject.getJSONArray("borders");
+            String borders = mainJsonObject.getJSONArray("borders").toString().replace("[", "").replace("]", "");
 
             JSONObject currencies = mainJsonObject.getJSONObject("currencies");
             System.out.println(currencies);
             String currency = String.valueOf(currencies.toMap().values()); //mapping the inner object
             System.out.println(currency);
-            String symbol = currency.substring(9).replace("[{", "").replace("}]", "");
+            String symbol = currency.substring(9).replace("[{", "").replace("}]", "").replace(", name=", ", ");
             System.out.println(symbol);
 
             System.out.println(answer + "'s region is " + region + ", its borders are " + borders + ", and its currency symbol is " + symbol + ".");
