@@ -14,7 +14,7 @@ public class ResAssuredConverterTest {
 
     @BeforeClass
     public static void runOnceBeforeClass() {
-        url = "http://api.exchangeratesapi.io/v1/latest?access_key=cff0d0360b396d00d0116a6c05d9bd18&symbols=USD,ILS";
+        url = "https://api.apilayer.com/exchangerates_data/latest?apikey=TkSh053jfBBxFBWom9Tggy58wPhOXdN7&base=USD";
         intro = "Welcome to currency converter:";
         outro = "Thanks for using our currency converter.";
     }
@@ -30,7 +30,7 @@ public class ResAssuredConverterTest {
     public void test02_validateResponse() {
         get(url).then().assertThat()
                 .statusCode(HttpStatus.SC_OK). //make sure response is OK
-        body("rates.ILS", equalTo(3.590609f)); //validate value
+        body("rates.ILS", equalTo(3.34467f)); //validate value
     }
 
     @Test

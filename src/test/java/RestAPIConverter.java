@@ -26,11 +26,13 @@ public class RestAPIConverter {
         error = "Wrong input";
         question = "Would you like to start again? (type y or n)";
         outro = "Thanks for using our currency converter.";
-        url = "http://api.exchangeratesapi.io/v1/latest?access_key=cff0d0360b396d00d0116a6c05d9bd18&symbols=USD,ILS";
+        url = "https://api.apilayer.com/exchangerates_data/latest?apikey=TkSh053jfBBxFBWom9Tggy58wPhOXdN7&base=USD";
 
         introScreen();
         requestScreen();
     }
+
+
 
     private static void getDataFromAPI(double amount) throws IOException {
         Request request = new Request.Builder()
@@ -44,7 +46,6 @@ public class RestAPIConverter {
         JSONObject mainJsonObject = new JSONObject(currencyData);
 
         JSONObject resultsJSON = mainJsonObject.getJSONObject("rates");
-        System.out.println(resultsJSON);
         double val = resultsJSON.getDouble("ILS");
         double calc = val * amount;
         System.out.println(amount + " USD is " + calc + " ILS");
