@@ -1,8 +1,14 @@
 import io.restassured.RestAssured;
+import io.restassured.config.HeaderConfig;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.http.Headers;
 import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.get;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,9 +24,9 @@ public class ResAssuredConverterTest {
 
     @BeforeClass
     public static void runOnceBeforeClass() {
-        url = "https://api.apilayer.com/exchangerates_data/latest?apikey=TkSh053jfBBxFBWom9Tggy58wPhOXdN7&base=USD";
-//        apiKey = "TkSh053jfBBxFBWom9Tggy58wPhOXdN7";
-//        base = "USD";
+        url = "https://api.apilayer.com/exchangerates_data/latest";
+        apiKey = "TkSh053jfBBxFBWom9Tggy58wPhOXdN7";
+        base = "USD";
         intro = "Welcome to currency converter:";
         outro = "Thanks for using our currency converter.";
     }
@@ -28,15 +34,25 @@ public class ResAssuredConverterTest {
 
     @Test
     public void test01_getBody() {
-        value = get(url).body().path("rates.ILS");
+        value = RestAssured.given()
+                .header("apikey",apiKey)
+                .headers("base",base)
+                .log().headers()
+                .get(url)
+                .body().path("rates.ILS");
         System.out.println("1 USD is " + value + " ILS");
     }
 
     @Test
     public void test02_validateResponse() {
-        get(url).then().assertThat()
+        RestAssured.given()
+                .header("apikey",apiKey)
+                .headers("base",base)
+                .log().headers()
+                .get(url)
+                .then().assertThat()
                 .statusCode(HttpStatus.SC_OK). //make sure response is OK
-        body("rates.ILS", equalTo(3.34467f)); //validate value
+        body("rates.ILS", equalTo(3.590609f)); //validate value
     }
 
     @Test
