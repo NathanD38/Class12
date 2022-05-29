@@ -17,6 +17,8 @@ public class RestAPIConverter {
     private static String question;
     private static String outro;
     private static String url;
+    private static String apiKey;
+    private static String base;
 
     public static void main(String[] args) {
         client = new OkHttpClient();
@@ -26,7 +28,9 @@ public class RestAPIConverter {
         error = "Wrong input";
         question = "Would you like to start again? (type y or n)";
         outro = "Thanks for using our currency converter.";
-        url = "https://api.apilayer.com/exchangerates_data/latest?apikey=TkSh053jfBBxFBWom9Tggy58wPhOXdN7&base=USD";
+        url = "https://api.apilayer.com/exchangerates_data/latest";
+        apiKey = "TkSh053jfBBxFBWom9Tggy58wPhOXdN7";
+        base = "USD";
 
         introScreen();
         requestScreen();
@@ -37,6 +41,8 @@ public class RestAPIConverter {
     private static void getDataFromAPI(double amount) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("apikey", apiKey)
+                .addHeader("base", base)
                 .build();
 
         Response response = client.newCall(request).execute();

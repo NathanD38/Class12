@@ -1,3 +1,5 @@
+import io.restassured.RestAssured;
+import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -7,6 +9,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ResAssuredConverterTest {
     private static String url;
+    private static String apiKey;
+    private static String base;
     private static float value;
     private static float calc;
     private static String intro;
@@ -15,6 +19,8 @@ public class ResAssuredConverterTest {
     @BeforeClass
     public static void runOnceBeforeClass() {
         url = "https://api.apilayer.com/exchangerates_data/latest?apikey=TkSh053jfBBxFBWom9Tggy58wPhOXdN7&base=USD";
+//        apiKey = "TkSh053jfBBxFBWom9Tggy58wPhOXdN7";
+//        base = "USD";
         intro = "Welcome to currency converter:";
         outro = "Thanks for using our currency converter.";
     }
